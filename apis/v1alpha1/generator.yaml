@@ -726,7 +726,7 @@ resources:
           name: ID
       # Allows you to specify a list of VPC IDs and/or VPC Refs from which
       # incoming VPC Peering requests will be automatically accepted
-      AcceptVpcPeeringRequestsFromVpcId:
+      AcceptVpcPeeringRequestsFromVpcIds:
         type: "[]*string"
         references:
           resource: VPC

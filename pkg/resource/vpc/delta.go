@@ -44,8 +44,8 @@ func newResourceDelta(
 	}
 	compareTags(delta, a, b)
 
-	if !ackcompare.SliceStringPEqual(a.ko.Spec.AcceptVPCPeeringRequestsFromVPCID, b.ko.Spec.AcceptVPCPeeringRequestsFromVPCID) {
-		delta.Add("Spec.AcceptVPCPeeringRequestsFromVPCID", a.ko.Spec.AcceptVPCPeeringRequestsFromVPCID, b.ko.Spec.AcceptVPCPeeringRequestsFromVPCID)
+	if !ackcompare.SliceStringPEqual(a.ko.Spec.AcceptVPCPeeringRequestsFromVPCIDs, b.ko.Spec.AcceptVPCPeeringRequestsFromVPCIDs) {
+		delta.Add("Spec.AcceptVPCPeeringRequestsFromVPCIDs", a.ko.Spec.AcceptVPCPeeringRequestsFromVPCIDs, b.ko.Spec.AcceptVPCPeeringRequestsFromVPCIDs)
 	}
 	if !reflect.DeepEqual(a.ko.Spec.AcceptVPCPeeringRequestsFromVPCRefs, b.ko.Spec.AcceptVPCPeeringRequestsFromVPCRefs) {
 		delta.Add("Spec.AcceptVPCPeeringRequestsFromVPCRefs", a.ko.Spec.AcceptVPCPeeringRequestsFromVPCRefs, b.ko.Spec.AcceptVPCPeeringRequestsFromVPCRefs)

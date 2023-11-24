@@ -38,7 +38,7 @@ func (rm *resourceManager) ClearResolvedReferences(res acktypes.AWSResource) ack
 	ko := rm.concreteResource(res).ko.DeepCopy()
 
 	if len(ko.Spec.AcceptVPCPeeringRequestsFromVPCRefs) > 0 {
-		ko.Spec.AcceptVPCPeeringRequestsFromVPCID = nil
+		ko.Spec.AcceptVPCPeeringRequestsFromVPCIDs = nil
 	}
 
 	return &resource{ko}
@@ -61,7 +61,7 @@ func (rm *resourceManager) ResolveReferences(
 
 	resourceHasReferences := false
 	err := validateReferenceFields(ko)
-	if fieldHasReferences, err := rm.resolveReferenceForAcceptVPCPeeringRequestsFromVPCID(ctx, apiReader, namespace, ko); err != nil {
+	if fieldHasReferences, err := rm.resolveReferenceForAcceptVPCPeeringRequestsFromVPCIDs(ctx, apiReader, namespace, ko); err != nil {
 		return &resource{ko}, (resourceHasReferences || fieldHasReferences), err
 	} else {
 		resourceHasReferences = resourceHasReferences || fieldHasReferences
@@ -74,17 +74,17 @@ func (rm *resourceManager) ResolveReferences(
 // identifier field.
 func validateReferenceFields(ko *svcapitypes.VPC) error {
 
-	if len(ko.Spec.AcceptVPCPeeringRequestsFromVPCRefs) > 0 && len(ko.Spec.AcceptVPCPeeringRequestsFromVPCID) > 0 {
-		return ackerr.ResourceReferenceAndIDNotSupportedFor("AcceptVPCPeeringRequestsFromVPCID", "AcceptVPCPeeringRequestsFromVPCRefs")
+	if len(ko.Spec.AcceptVPCPeeringRequestsFromVPCRefs) > 0 && len(ko.Spec.AcceptVPCPeeringRequestsFromVPCIDs) > 0 {
+		return ackerr.ResourceReferenceAndIDNotSupportedFor("AcceptVPCPeeringRequestsFromVPCIDs", "AcceptVPCPeeringRequestsFromVPCRefs")
 	}
 	return nil
 }
 
-// resolveReferenceForAcceptVPCPeeringRequestsFromVPCID reads the resource referenced
-// from AcceptVPCPeeringRequestsFromVPCRefs field and sets the AcceptVPCPeeringRequestsFromVPCID
+// resolveReferenceForAcceptVPCPeeringRequestsFromVPCIDs reads the resource referenced
+// from AcceptVPCPeeringRequestsFromVPCRefs field and sets the AcceptVPCPeeringRequestsFromVPCIDs
 // from referenced resource. Returns a boolean indicating whether a reference
 // contains references, or an error
-func (rm *resourceManager) resolveReferenceForAcceptVPCPeeringRequestsFromVPCID(
+func (rm *resourceManager) resolveReferenceForAcceptVPCPeeringRequestsFromVPCIDs(
 	ctx context.Context,
 	apiReader client.Reader,
 	namespace string,
@@ -101,10 +101,10 @@ func (rm *resourceManager) resolveReferenceForAcceptVPCPeeringRequestsFromVPCID(
 			if err := getReferencedResourceState_VPC(ctx, apiReader, obj, *arr.Name, namespace); err != nil {
 				return hasReferences, err
 			}
-			if ko.Spec.AcceptVPCPeeringRequestsFromVPCID == nil {
-				ko.Spec.AcceptVPCPeeringRequestsFromVPCID = make([]*string, 0, 1)
+			if ko.Spec.AcceptVPCPeeringRequestsFromVPCIDs == nil {
+				ko.Spec.AcceptVPCPeeringRequestsFromVPCIDs = make([]*string, 0, 1)
 			}
-			ko.Spec.AcceptVPCPeeringRequestsFromVPCID = append(ko.Spec.AcceptVPCPeeringRequestsFromVPCID, (*string)(obj.Status.VPCID))
+			ko.Spec.AcceptVPCPeeringRequestsFromVPCIDs = append(ko.Spec.AcceptVPCPeeringRequestsFromVPCIDs, (*string)(obj.Status.VPCID))
 		}
 	}
 
