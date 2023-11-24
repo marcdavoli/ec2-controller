@@ -44,6 +44,12 @@ func newResourceDelta(
 	}
 	compareTags(delta, a, b)
 
+	if !ackcompare.SliceStringPEqual(a.ko.Spec.AcceptVPCPeeringRequestsFromVPCID, b.ko.Spec.AcceptVPCPeeringRequestsFromVPCID) {
+		delta.Add("Spec.AcceptVPCPeeringRequestsFromVPCID", a.ko.Spec.AcceptVPCPeeringRequestsFromVPCID, b.ko.Spec.AcceptVPCPeeringRequestsFromVPCID)
+	}
+	if !reflect.DeepEqual(a.ko.Spec.AcceptVPCPeeringRequestsFromVPCRefs, b.ko.Spec.AcceptVPCPeeringRequestsFromVPCRefs) {
+		delta.Add("Spec.AcceptVPCPeeringRequestsFromVPCRefs", a.ko.Spec.AcceptVPCPeeringRequestsFromVPCRefs, b.ko.Spec.AcceptVPCPeeringRequestsFromVPCRefs)
+	}
 	if ackcompare.HasNilDifference(a.ko.Spec.AmazonProvidedIPv6CIDRBlock, b.ko.Spec.AmazonProvidedIPv6CIDRBlock) {
 		delta.Add("Spec.AmazonProvidedIPv6CIDRBlock", a.ko.Spec.AmazonProvidedIPv6CIDRBlock, b.ko.Spec.AmazonProvidedIPv6CIDRBlock)
 	} else if a.ko.Spec.AmazonProvidedIPv6CIDRBlock != nil && b.ko.Spec.AmazonProvidedIPv6CIDRBlock != nil {
