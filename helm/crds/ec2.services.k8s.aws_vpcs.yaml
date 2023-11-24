@@ -43,7 +43,7 @@ spec:
             description: "VpcSpec defines the desired state of Vpc. \n Describes a
               VPC."
             properties:
-              acceptVPCPeeringRequestsFromVPCID:
+              acceptVPCPeeringRequestsFromVPCIDs:
                 items:
                   type: string
                 type: array
